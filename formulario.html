@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defina Seu Estilo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #A29BFE;
+            --dark: #2D3436;
+            --light: #F5F6FA;
+            --accent: #FD79A8;
+            --success: #00B894;
+            --shadow: 0 15px 30px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header (mantido conforme original) */
+        header.formu {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .logo img {
+            height: 40px;
+            transition: var(--transition);
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .navigation a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .navigation a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        .navigation a:hover::after {
+            width: 100%;
+        }
+
+        /* Conteúdo Principal */
+        main.escolha {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            background: url('https://i.imgur.com/ZKMnXce.png') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        main.escolha::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 246, 250, 0.9);
+            z-index: 0;
+        }
+
+        /* Seção Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        /* Formulário */
+        .form-section {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 700px;
+            z-index: 1;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-size: 16px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+            background-color: white;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+            background-color: white;
+            transition: var(--transition);
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Botão */
+        .link-botao {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .link-botao:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        /* Mensagem de Sucesso */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        .success-message i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Estilos para upload de imagem de perfil */
+        .profile-image-upload {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .profile-image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .select-image-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .select-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        /* Animações */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .form-section {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-section {
+                border-radius: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="formu">
+        <div class="logo">
+            <a href="index.html">
+               <img src="imagens/logo-form.png" alt="Logo">
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html">Início</a>
+        </nav>
+    </header>
+
+    <main class="escolha">
+        <section class="hero">
+            <h1>Defina Seu Estilo</h1>
+            <p>Descubra o estilo perfeito para cada ocasião.</p>
+        </section>
+
+        <section class="form-section">
+            <form id="preferencesForm">
+                <!-- Campo para upload de foto de perfil -->
+                <div class="form-group profile-image-upload">
+                    <label for="profileImage"><i class="fas fa-camera"></i> Foto de Perfil</label>
+                    <div class="profile-image-container">
+                        <img id="profileImagePreview" src="imagens/default.png" alt="Foto de Perfil" class="profile-image-preview">
+                        <input type="file" id="profileImage" name="profileImage" accept="image/*" style="display: none;">
+                        <button type="button" id="selectImageBtn" class="select-image-btn"><i class="fas fa-upload"></i> Selecionar Imagem</button>
+                    </div>
+                </div>
+                <!-- Campo para biografia -->
+                <div class="form-group">
+                    <label for="bio"><i class="fas fa-comment-alt"></i> Biografia</label>
+                    <textarea id="bio" name="bio" rows="4" placeholder="Conte um pouco sobre você..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="genero"><i class="fas fa-user"></i> Qual é o seu gênero?</label>
+                    <select id="genero" name="genero">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Outro">Prefiro não dizer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipoCorporal"><i class="fas fa-tshirt"></i> Qual é o seu tipo de corpo?</label>
+                    <select id="tipoCorporal" name="tipoCorporal">
+                        <option value="Small">Small</option>
+                        <option value="Mid size">Mid size</option>
+                        <option value="Plus size">Plus size</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="formatoCorporal"><i class="fas fa-user-circle"></i> Qual é o seu formato de corpo?</label>
+                    <select id="formatoCorporal" name="formatoCorporal">
+                        <option value="Ampulheta">Ampulheta</option>
+                        <option value="Triângulo">Triângulo</option>
+                        <option value="Triângulo invertido">Triângulo invertido</option>
+                        <option value="Oval">Oval</option>
+                        <option value="Retângulo">Retângulo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="estiloPrincipal"><i class="fas fa-star"></i> Qual é o seu estilo principal?</label>
+                    <select id="estiloPrincipal" name="estiloPrincipal">
+                        <option value="Elegante/Clássico">Elegante/Clássico</option>
+                        <option value="Vintage/Retrô">Vintage/Retrô</option>
+                        <option value="Urbano/Streetwear">Urbano/Streetwear</option>
+                        <option value="Boho/Despojado">Boho/Despojado</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Esportivo">Esportivo</option>
+                        <option value="Minimalista">Minimalista</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pecaFrequente"><i class="fas fa-shopping-bag"></i> Qual peça de roupa você usa com mais frequência?</label>
+                    <select id="pecaFrequente" name="pecaFrequente">
+                        <option value="Camisa">Camisa</option>
+                        <option value="Calça">Calça</option>
+                        <option value="Saia">Saia</option>
+                        <option value="Vestido">Vestido</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="corPreferida"><i class="fas fa-palette"></i> Qual cor você prefere usar?</label>
+                    <select id="corPreferida" name="corPreferida">
+                        <option value="Branco">Branco</option>
+                        <option value="Preto">Preto</option>
+                        <option value="Cinza">Cinza</option>
+                        <option value="Vermelho">Vermelho</option>
+                        <option value="Verde">Verde</option>
+                        <option value="Rosa">Rosa</option>
+                        <option value="Roxo">Roxo</option>
+                        <option value="Amarelo">Amarelo</option>
+                        <option value="Laranja">Laranja</option>
+                        <option value="Marrom">Marrom</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="estiloEvitar"><i class="fas fa-ban"></i> Há algum estilo que você gostaria de evitar?</label>
+                    <select id="estiloEvitar" name="estiloEvitar">
+                        <option value="Elegante/Clássico">Elegante/Clássico</option>
+                        <option value="Vintage/Retrô">Vintage/Retrô</option>
+                        <option value="Urbano/Streetwear">Urbano/Streetwear</option>
+                        <option value="Boho/Despojado">Boho/Despojado</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Esportivo">Esportivo</option>
+                        <option value="Minimalista">Minimalista</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ocasiaoComum"><i class="fas fa-calendar-alt"></i> Qual a ocasião mais comum para se vestir?</label>
+                    <select id="ocasiaoComum" name="ocasiaoComum">
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Festa">Festa</option>
+                        <option value="Evento social">Evento social</option>
+                        <option value="Academia">Academia</option>
+                        <option value="Casual diário">Casual diário</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="link-botao">
+                    <i class="fas fa-paper-plane"></i> Enviar Preferências
+                </button>
+            </form>
+        </section>
+        
+        <div id="success-message" class="success-message">
+            <i class="fas fa-check-circle"></i>
+            <span>Preferências salvas com sucesso!</span>
+        </div>
+    </main>
+
+    <script>
+    // Configuração da API
+    const API_URL = 'http://localhost:3000/api';
+
+    // Verificar se o usuário está autenticado
+    function checkAuth() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            // Redirecionar para a página de login se não estiver autenticado
+            window.location.href = 'login.html';
+            return false;
+        }
+        return true;
+    }
+
+    // Carregar dados do usuário se estiver editando o perfil
+    async function loadUserData() {
+        if (!checkAuth()) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/users/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Falha ao carregar dados do usuário');
+            }
+
+            const data = await response.json();
+            console.log('Dados do usuário:', data);
+            
+            // Se o usuário já tem preferências, preencher o formulário
+            if (data.preferences) {
+                const preferences = data.preferences;
+                if (preferences.genero) document.getElementById('genero').value = preferences.genero;
+                if (preferences.tipoCorporal) document.getElementById('tipoCorporal').value = preferences.tipoCorporal;
+                if (preferences.formatoCorporal) document.getElementById('formatoCorporal').value = preferences.formatoCorporal;
+                if (preferences.estiloPrincipal) document.getElementById('estiloPrincipal').value = preferences.estiloPrincipal;
+                if (preferences.pecaFrequente) document.getElementById('pecaFrequente').value = preferences.pecaFrequente;
+                if (preferences.corPreferida) document.getElementById('corPreferida').value = preferences.corPreferida;
+                if (preferences.estiloEvitar) document.getElementById('estiloEvitar').value = preferences.estiloEvitar;
+                if (preferences.ocasiaoComum) document.getElementById('ocasiaoComum').value = preferences.ocasiaoComum;
+            }
+
+            // Carregar biografia se existir
+            if (data.user && data.user.bio) {
+                document.getElementById('bio').value = data.user.bio;
+            }
+
+            // Carregar imagem de perfil se existir
+            if (data.user && data.user.profileImage) {
+                document.getElementById('profileImagePreview').src = data.user.profileImage;
+            }
+        } catch (error) {
+            console.error('Erro ao carregar dados do usuário:', error);
+        }
+    }
+
+    // Enviar preferências para o backend
+    async function savePreferences(preferences) {
+        if (!checkAuth()) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/preferences`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(preferences)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro ao salvar preferências');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao salvar preferências:', error);
+            throw error;
+        }
+    }
+
+    // Atualizar dados do usuário
+    async function updateUserData(userData) {
+        if (!checkAuth()) return;
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/users/me`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro ao atualizar dados do usuário');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao atualizar dados do usuário:', error);
+            throw error;
+        }
+    }
+
+    // Upload de imagem de perfil
+    async function uploadProfileImage(imageFile) {
+        try {
+            const token = localStorage.getItem('token');
+            const formData = new FormData();
+            formData.append('image', imageFile);
+
+            const response = await fetch(`${API_URL}/users/me/profile-image`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Falha ao fazer upload da imagem');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao fazer upload da imagem:', error);
+            throw error;
+        }
+    }
+
+    // Manipular o envio do formulário
+    document.getElementById('preferencesForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        // Capturar os valores do formulário
+        const preferences = {
+            genero: document.getElementById('genero').value,
+            tipoCorporal: document.getElementById('tipoCorporal').value,
+            formatoCorporal: document.getElementById('formatoCorporal').value,
+            estiloPrincipal: document.getElementById('estiloPrincipal').value,
+            pecaFrequente: document.getElementById('pecaFrequente').value,
+            corPreferida: document.getElementById('corPreferida').value,
+            estiloEvitar: document.getElementById('estiloEvitar').value,
+            ocasiaoComum: document.getElementById('ocasiaoComum').value
+        };
+        
+        // Capturar a biografia
+        const bio = document.getElementById('bio').value;
+        
+        // Exibir os valores no console
+        console.log('Preferências enviadas:', preferences);
+        console.log('Biografia enviada:', bio);
+        
+        try {
+            // Primeiro, fazer upload da imagem se uma nova foi selecionada
+            const imageInput = document.getElementById('profileImage');
+            if (imageInput.files && imageInput.files[0]) {
+                const imageResult = await uploadProfileImage(imageInput.files[0]);
+                console.log('Imagem enviada:', imageResult);
+            }
+
+            // Atualizar dados do usuário (biografia)
+            if (bio) {
+                const userResult = await updateUserData({ bio });
+                console.log('Dados do usuário atualizados:', userResult);
+            }
+
+            // Depois, salvar as preferências
+            const result = await savePreferences(preferences);
+            console.log('Preferências salvas:', result);
+            
+            // Exibir mensagem de sucesso
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.add('show');
+            
+            // Redirecionar após um tempo
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                window.location.href = 'perfil.html';
+            }, 2000);
+        } catch (error) {
+            alert('Erro ao salvar dados: ' + error.message);
+        }
+    });
+
+    // Manipulador para o botão de seleção de imagem
+    document.getElementById('selectImageBtn').addEventListener('click', function() {
+        document.getElementById('profileImage').click();
+    });
+
+    // Mostrar preview da imagem quando selecionada
+    document.getElementById('profileImage').addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileImagePreview').src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    // Carregar dados do usuário ao iniciar a página
+    document.addEventListener('DOMContentLoaded', loadUserData);
+</script>
+</body>
+</html>
