@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website With Login & Registration | Codehal</title>
+    <title>Style | Login e Cadastro</title>
     <link rel="stylesheet" href="css/entrar.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <!-- Remova qualquer importação do arquivo entrar.js se existir -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body class="cadastro">
-<img src="imagens/logo-form.png">
+<div class="logo-container">
+    <img src="imagens/logo-form.png" alt="Logo Style">
+</div>
 <div class="container" id="container">
   <div class="form-container sign-up-container">
     <form>
@@ -70,8 +72,6 @@
 </div>
 
 <script>
-    console.log('Script de entrar.html carregado');
-    
     // Configuração da API
     const API_URL = 'https://styleback.onrender.com/api';
     
@@ -89,10 +89,8 @@
 
     // Função para realizar login
     window.login = async function() {
-        console.log('Função de login chamada');
         const email = document.getElementById('e-mail').value;
         const password = document.getElementById('senha').value;
-        console.log('Email:', email, 'Senha:', password);
 
         // Validação básica
         if (!email || !password) {
@@ -104,8 +102,10 @@
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
 
@@ -119,23 +119,19 @@
             localStorage.setItem('token', data.token);
             localStorage.setItem('userData', JSON.stringify(data.user));
 
-            console.log('Login realizado com sucesso');
             // Redirecionar para a página de perfil
             window.location.href = 'perfil.html';
         } catch (error) {
-            console.error('Erro no login:', error);
-            alert(error.message);
+            alert(error.message || 'Erro ao fazer login. Tente novamente.');
         }
     }
 
     // Função para registrar novo usuário
     window.register = async function() {
-        console.log('Função de registro chamada');
         const name = document.getElementById('name').value;
         const username = name.toLowerCase().replace(/\s+/g, '_'); // Criar username a partir do nome
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        console.log('Nome:', name, 'Email:', email, 'Senha:', password);
 
         // Validação básica
         if (!name || !email || !password) {
@@ -147,67 +143,32 @@
             const response = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ name, username, email, password })
             });
 
-            const data = await response.json();
-
             if (!response.ok) {
+                const data = await response.json();
                 throw new Error(data.message || 'Erro ao registrar');
             }
+
+            const data = await response.json();
 
             // Salvar token e dados do usuário no localStorage
             localStorage.setItem('token', data.token);
             localStorage.setItem('userData', JSON.stringify(data.user));
 
-            console.log('Cadastro realizado com sucesso');
             // Redirecionar para a página de formulário
             window.location.href = 'formulario.html';
         } catch (error) {
-            console.error('Erro no cadastro:', error);
-            alert(error.message);
+            alert(error.message || 'Erro ao registrar. Tente novamente.');
         }
     }
 </script>
-<!-- Botão de teste para depuração -->
-<div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
-    <button onclick="console.log('Botão de teste clicado'); window.login()" style="padding: 10px; background-color: #ff5555; color: white; border: none; border-radius: 5px; margin-right: 10px;">Teste Login</button>
-    <button onclick="console.log('Botão de teste de registro clicado'); window.register()" style="padding: 10px; background-color: #5555ff; color: white; border: none; border-radius: 5px;">Teste Registro</button>
-</div>
 
-<!-- Adicionar console para depuração -->
-<div id="debug-console" style="position: fixed; bottom: 60px; right: 10px; width: 300px; height: 200px; background-color: rgba(0,0,0,0.8); color: white; padding: 10px; overflow: auto; font-family: monospace; font-size: 12px; z-index: 9999;">
-    <div>Console de depuração:</div>
-</div>
-
-<script>
-    // Sobrescrever console.log para exibir no console de depuração
-    const originalConsoleLog = console.log;
-    console.log = function() {
-        // Chamar a função original
-        originalConsoleLog.apply(console, arguments);
-        
-        // Adicionar ao console de depuração
-        const debugConsole = document.getElementById('debug-console');
-        if (debugConsole) {
-            const args = Array.from(arguments).map(arg => {
-                if (typeof arg === 'object') {
-                    return JSON.stringify(arg);
-                }
-                return arg;
-            }).join(' ');
-            
-            const logLine = document.createElement('div');
-            logLine.textContent = args;
-            debugConsole.appendChild(logLine);
-            
-            // Manter o scroll no final
-            debugConsole.scrollTop = debugConsole.scrollHeight;
-        }
-    };
-</script>
 </body>
 
 </html>
