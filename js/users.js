@@ -1,5 +1,5 @@
 // Configuração da API
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://styleback.onrender.com/api';
 
 async function register() {
   try {
