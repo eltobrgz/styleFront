@@ -30,8 +30,10 @@ async function loadCombinations() {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -93,8 +95,10 @@ async function viewCombination(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -174,8 +178,10 @@ async function deleteCombination(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -201,8 +207,10 @@ async function loadUserData() {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {

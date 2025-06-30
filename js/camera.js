@@ -34,8 +34,10 @@ async function loadUserData() {
         const response = await fetch(`${API_URL}/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -64,8 +66,10 @@ async function verLook(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
-            }
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {

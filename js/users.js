@@ -23,8 +23,10 @@ async function register() {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(user)
     });
 
@@ -67,8 +69,10 @@ async function login() {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(user)
     });
 
@@ -88,8 +92,10 @@ async function login() {
     const preferencesResponse = await fetch(`${API_URL}/users/me`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+      },
+      credentials: 'include'
     });
     
     const userData = await preferencesResponse.json();
@@ -152,8 +158,10 @@ async function getUsers() {
     const response = await fetch(`${API_URL}/users`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) {
