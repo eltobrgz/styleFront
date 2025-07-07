@@ -1,10 +1,12 @@
-// Configuração da API
-const API_URL = 'https://styleback.onrender.com/api';
+// Importar configuração da API
+import { API_URL } from './config.js';
 
-function toggleSidebar() {
-    let sidebar = document.getElementById("sidebar");
-    sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-}
+/**
+ * Perfil do usuário
+ * Script responsável pela funcionalidade da página de perfil
+ */
+
+// A função toggleSidebar foi movida para sidebar.js para centralizar a funcionalidade
 
 // Verificar se o usuário está autenticado
 function checkAuth() {
@@ -30,10 +32,8 @@ async function loadCombinations() {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Content-Type': 'application/json'
+            }
         });
 
         if (!response.ok) {
@@ -95,10 +95,8 @@ async function viewCombination(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         if (!response.ok) {
@@ -178,10 +176,8 @@ async function deleteCombination(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         if (!response.ok) {
@@ -207,10 +203,8 @@ async function loadUserData() {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Content-Type': 'application/json'
+            }
         });
 
         if (!response.ok) {
@@ -323,11 +317,7 @@ if (logoutButton) {
     logoutButton.addEventListener('click', logout);
 }
 
-// Chamar as funções quando a página carregar
-document.addEventListener('DOMContentLoaded', () => {
-    loadUserData();
-    loadCombinations();
-});
+// As funções serão chamadas na inicialização principal no final do arquivo
 
 // Adicionar estilos para o modal
 const style = document.createElement('style');

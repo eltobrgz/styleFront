@@ -1,5 +1,5 @@
-// Configuração da API
-const API_URL = 'https://styleback.onrender.com/api';
+// Importar configuração da API
+import { API_URL } from './config.js';
 
 async function register() {
   try {
@@ -23,10 +23,8 @@ async function register() {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
-      credentials: 'include',
       body: JSON.stringify(user)
     });
 
@@ -69,10 +67,8 @@ async function login() {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
-      credentials: 'include',
       body: JSON.stringify(user)
     });
 
@@ -92,10 +88,8 @@ async function login() {
     const preferencesResponse = await fetch(`${API_URL}/users/me`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json'
-      },
-      credentials: 'include'
+        'Authorization': `Bearer ${token}`
+      }
     });
     
     const userData = await preferencesResponse.json();
@@ -158,10 +152,8 @@ async function getUsers() {
     const response = await fetch(`${API_URL}/users`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/json'
-      },
-      credentials: 'include'
+        'Authorization': `Bearer ${token}`
+      }
     });
 
     if (!response.ok) {

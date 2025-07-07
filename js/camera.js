@@ -1,6 +1,6 @@
 
-// Configuração da API
-const API_URL = 'https://styleback.onrender.com/api';
+// Importar configuração da API
+import { API_URL } from './config.js';
 
 function toggleSidebar() {
     let sidebar = document.getElementById("sidebar");
@@ -34,10 +34,8 @@ async function loadUserData() {
         const response = await fetch(`${API_URL}/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         if (!response.ok) {
@@ -66,10 +64,8 @@ async function verLook(id) {
         const response = await fetch(`${API_URL}/combinations/${id}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         if (!response.ok) {

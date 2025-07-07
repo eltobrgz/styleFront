@@ -6,6 +6,7 @@
     <title>Style App | Tutorial da Câmera</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <style>
         :root {
@@ -301,19 +302,49 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo-container">
+    <!-- Botão de toggle da sidebar para mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Sidebar global -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
             <img src="imagens/logo-form.png" alt="StyleHub Logo">
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         
-        <nav class="navigation" id="navigation">
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="#"><i class="fas fa-camera"></i> Tutorial</a>
-        </nav>
-        <span class="menu-icon" onclick="toggleNav()"><ion-icon name="menu-outline"></ion-icon></span>
-    </header>
+        <!-- Perfil do usuário na sidebar -->
+        <div class="user-profile">
+            <div class="user-avatar">
+                <img src="imagens/default.png" alt="Avatar do usuário" id="sidebarUserAvatar">
+            </div>
+            <div class="user-info">
+                <p class="user-name" id="sidebarUserName">Usuário</p>
+                <p class="user-role">Membro</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-content">
+            <ul class="sidebar-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="formulario.html"><i class="fas fa-clipboard-list"></i> Preferências</a></li>
+                <li><a href="camera.html"><i class="fas fa-camera"></i> Visualizador AR</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Perfil</a></li>
+                <li><a href="stylebot.html"><i class="fas fa-robot"></i> StyleBot</a></li>
+                <li><a href="tutorial.html" class="active"><i class="fas fa-question-circle"></i> Tutorial</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            &copy; 2023 Style App - Todos os direitos reservados
+        </div>
+    </aside>
 
-    <main>
+    <main class="main-content">
         <div class="tutorial-container">
             <h1>Tutorial de como adicionar suas roupas</h1>
             
@@ -343,27 +374,42 @@
     </main>
 
     <script>
-        // Menu Toggle
-        function toggleNav() {
-            const nav = document.getElementById('navigation');
-            nav.classList.toggle('show');
-        }
-        
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', (event) => {
-            const nav = document.getElementById('navigation');
-            const menuIcon = document.querySelector('.menu-icon');
-            
-            if (!nav.contains(event.target) && !menuIcon.contains(event.target)) {
-                nav.classList.remove('show');
-            }
-        });
         
         // Animação ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
             const tutorialContainer = document.querySelector('.tutorial-container');
             tutorialContainer.style.animation = 'fadeInUp 0.8s ease';
+            
+            // Verificar autenticação
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'entrar.html';
+            }
+            
+            // Carregar dados do usuário para a sidebar
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData) {
+                const userNameElement = document.getElementById('sidebarUserName');
+                const userAvatarElement = document.getElementById('sidebarUserAvatar');
+                
+                if (userNameElement) {
+                    userNameElement.textContent = userData.name || 'Usuário';
+                }
+                
+                if (userAvatarElement && userData.profileImage) {
+                    userAvatarElement.src = userData.profileImage;
+                }
+            }
+            
+            // Configurar logout
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userData');
+                window.location.href = 'entrar.html';
+            });
         });
     </script>
+    <script src="js/sidebar.js"></script>
 </body>
 </html>

@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Style | Login e Cadastro</title>
-    <link rel="stylesheet" href="css/entrar.css">
+    <title>Style | Entrar ou Cadastrar</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/entrar.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <!-- Remova qualquer importação do arquivo entrar.js se existir -->
 </head>
 
 <body class="cadastro">
-<div class="logo-container">
-    <img src="imagens/logo-form.png" alt="Logo Style">
-</div>
+<img src="imagens/logo-form.png">
 <div class="container" id="container">
   <div class="form-container sign-up-container">
     <form>
@@ -71,9 +69,11 @@
   </div>
 </div>
 
-<script>
-    // Configuração da API
-    const API_URL = 'https://styleback.onrender.com/api';
+<script type="module">
+    console.log('Script de entrar.html carregado');
+    
+    // Importar configuração da API
+    import { API_URL } from './js/config.js';
     
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
@@ -89,8 +89,10 @@
 
     // Função para realizar login
     window.login = async function() {
+        console.log('Função de login chamada');
         const email = document.getElementById('e-mail').value;
         const password = document.getElementById('senha').value;
+        console.log('Email:', email, 'Senha:', password);
 
         // Validação básica
         if (!email || !password) {
@@ -102,10 +104,8 @@
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
 
@@ -119,19 +119,23 @@
             localStorage.setItem('token', data.token);
             localStorage.setItem('userData', JSON.stringify(data.user));
 
+            console.log('Login realizado com sucesso');
             // Redirecionar para a página de perfil
             window.location.href = 'perfil.html';
         } catch (error) {
-            alert(error.message || 'Erro ao fazer login. Tente novamente.');
+            console.error('Erro no login:', error);
+            alert(error.message);
         }
     }
 
     // Função para registrar novo usuário
     window.register = async function() {
+        console.log('Função de registro chamada');
         const name = document.getElementById('name').value;
         const username = name.toLowerCase().replace(/\s+/g, '_'); // Criar username a partir do nome
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        console.log('Nome:', name, 'Email:', email, 'Senha:', password);
 
         // Validação básica
         if (!name || !email || !password) {
@@ -143,32 +147,33 @@
             const response = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                credentials: 'include',
                 body: JSON.stringify({ name, username, email, password })
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                const data = await response.json();
                 throw new Error(data.message || 'Erro ao registrar');
             }
-
-            const data = await response.json();
 
             // Salvar token e dados do usuário no localStorage
             localStorage.setItem('token', data.token);
             localStorage.setItem('userData', JSON.stringify(data.user));
 
+            console.log('Cadastro realizado com sucesso');
             // Redirecionar para a página de formulário
             window.location.href = 'formulario.html';
         } catch (error) {
-            alert(error.message || 'Erro ao registrar. Tente novamente.');
+            console.error('Erro no cadastro:', error);
+            alert(error.message);
         }
     }
 </script>
 
+
+<!-- Console de depuração removido -->
 </body>
 
 </html>

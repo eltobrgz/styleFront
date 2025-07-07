@@ -1,364 +1,97 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - Style</title>
-    <link rel="stylesheet" href="css/perfil.css">
+    <title>Meu Perfil - StyleHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f5;
-        }
-
-        .header {
-            background-color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header h1 {
-            color: #333;
-            font-size: 1.5rem;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #333;
-        }
-
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: white;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            z-index: 1001;
-            padding-top: 60px;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 1rem;
-        }
-
-        .sidebar .menu-item {
-            padding: 0.8rem 1rem;
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            font-size: 1rem;
-            color: #333;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 8px;
-        }
-
-        .sidebar .menu-item:hover {
-            background-color: #f0f0f0;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #333;
-        }
-
-        .profile {
-            margin-top: 80px;
-            padding: 2rem;
-        }
-
-        .profile-info {
-            background-color: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 4px solid #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .profile-info h2 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-        }
-
-        .profile-info p {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-info .bio {
-            color: #444;
-            margin: 1rem 0;
-            padding: 1rem;
-            background-color: #f8f8f8;
-            border-radius: 8px;
-            line-height: 1.6;
-        }
-
-        .edit-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.3s;
-            margin-top: 1rem;
-        }
-
-        .edit-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .style-feed {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .style-feed h3 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
-        .feed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            padding: 1rem;
-        }
-
-        .feed-item {
-            background-color: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .feed-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .feed-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .feed-item p {
-            padding: 1rem;
-            color: #333;
-            font-weight: 500;
-            text-align: center;
-            background-color: rgba(255,255,255,0.9);
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            margin: 0;
-        }
-
-        .preferences-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 600px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .preferences-section h3 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .preference-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .preference-item:last-child {
-            border-bottom: none;
-        }
-
-        .preference-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .preference-value {
-            color: #333;
-            font-weight: 600;
-        }
-
-        .feed-grid {
-          display: grid;
-         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-         gap: 20px;
-         padding: 20px;
-        }
-
-        .feed-item {
-             background: white;
-             border-radius: 10px;
-             overflow: hidden;
-             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-             transition: transform 0.3s ease;
-              cursor: pointer;
-        }
-
-        .feed-item:hover {
-             transform: translateY(-5px);
-             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .feed-item img {
-               width: 100%;
-              height: 200px;
-             object-fit: cover;
-        }
-
-        .feed-item p {
-              padding: 15px;
-             text-align: center;
-             font-weight: 500;
-             color: #333;
-             margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/perfil.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <!-- Estilos movidos para os arquivos CSS externos -->
 </head>
 <body>
-    <!-- MENU LATERAL -->
-    <nav id="sidebar" class="sidebar">
-        <button class="close-btn" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
-        <ul>
-            <li><button class="menu-item"><i class="fas fa-home"></i> Início</button></li>
-            <li><button class="menu-item"><i class="fas fa-camera"></i> <a href="tutorial.html">Câmera</a></button></li>
-            <li><button class="menu-item"><i class="fas fa-user"></i> Perfil</button></li>
-            <li><button class="menu-item"><i class="fas fa-cog"></i> Configurações</button></li>
-            <li><button class="menu-item"><i class="fas fa-user"></i> <a href="stylebot.html"> </i> Stylebot</button></a></li>
-            <li><button class="menu-item"><i class="fas fa-favorit"></i> Favoritos</button></li>
-            <li><button class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button></li>
-        </ul>
-    </nav>
+    <!-- Botão de toggle da sidebar para mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Sidebar global -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="imagens/logo-form.png" alt="StyleHub Logo">
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Perfil do usuário na sidebar -->
+        <div class="user-profile">
+            <div class="user-avatar">
+                <img src="imagens/default.png" alt="Avatar do usuário" id="sidebarUserAvatar">
+            </div>
+            <div class="user-info">
+                <p class="user-name" id="sidebarUserName">Usuário</p>
+                <p class="user-role">Membro</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-content">
+            <ul class="sidebar-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="formulario.html"><i class="fas fa-clipboard-list"></i> Preferências</a></li>
+                <li><a href="camera.html"><i class="fas fa-camera"></i> Visualizador AR</a></li>
+                <li><a href="perfil.html" class="active"><i class="fas fa-user"></i> Perfil</a></li>
+                <li><a href="stylebot.html"><i class="fas fa-robot"></i> StyleBot</a></li>
+                <li><a href="tutorial.html"><i class="fas fa-question-circle"></i> Tutorial</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            &copy; 2023 Style App - Todos os direitos reservados
+        </div>
+    </aside>
 
-    <!-- CABEÇALHO -->
-    <header class="header">
-        <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-        <h1>Style</h1>
-        <div style="width: 24px;"></div> <!-- Espaçador para centralizar o título -->
-    </header>
-
-    <!-- PERFIL -->
+    <!-- Conteúdo principal -->
     <main class="main-content">
         <section class="profile">
             <div class="profile-header">
                 <div class="profile-cover"></div>
                 <div class="profile-avatar-container">
-                    <img src="imagens/default.png" alt="Foto de Perfil" class="profile-pic">
+                <img src="imagens/default.png" alt="Foto de perfil" id="profilePic" class="profile-pic">
+            </div>
+                <div class="profile-info">
+                    <div class="profile-name-container">
+                        <h2 id="userName">Nome do Usuário</h2>
+                        <p class="username" id="userEmail">@usuario</p>
+                    </div>
+                    <div class="bio-container">
+                        <p class="bio" id="userBio">Adicione uma bio ao seu perfil</p>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="edit-btn" id="editProfileBtn"><i class="fas fa-edit"></i> Editar Perfil</button>
+                    </div>
                 </div>
             </div>
             
-            <div class="profile-info">
-                <div class="profile-name-container">
-                    <h2>Carregando...</h2>
-                    <p class="username">@carregando</p>
-                </div>
-                
-                <div class="bio-container">
-                    <p class="bio">Carregando preferências...</p>
-                </div>
-                
-                <div class="profile-actions">
-                    <button class="edit-btn" onclick="window.location.href='formulario.html'"><i class="fas fa-edit"></i> Editar Perfil</button>
-                </div>
-            </div>
-
-            <!-- Seção de preferências -->
             <div class="preferences-section">
-                <h3><i class="fas fa-heart"></i> Minhas Preferências</h3>
-                <div id="preferences-list" class="preferences-grid">
-                    <!-- Será preenchido via JavaScript -->
+                <h3><i class="fas fa-sliders-h"></i> Minhas Preferências</h3>
+                <div class="preferences-grid" id="preferences-list">
+                    <!-- Preferências serão carregadas dinamicamente -->
                 </div>
             </div>
-        </section>
-
-        <!-- COMBINAÇÕES -->
-        <section class="combinations-section">
-            <h3><i class="fas fa-tshirt"></i> Minhas Combinações</h3>
-            <div class="feed-grid" id="photo-feed">
-                <!-- Será preenchido via JavaScript -->
+            
+            <div class="combinations-section">
+                <h3><i class="fas fa-tshirt"></i> Minhas Combinações</h3>
+                <div class="feed-grid" id="photo-feed">
+                    <!-- Combinações serão carregadas dinamicamente -->
+                </div>
             </div>
         </section>
     </main>
 
-    <script>
-        // Verificar autenticação ao carregar a página
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se o usuário está autenticado
-            const token = localStorage.getItem('token');
-            if (!token) {
-                // Redirecionar para a página de login se não estiver autenticado
-                window.location.href = 'entrar.html';
-            }
-        });
-    </script>
-    <script src="js/perfil.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script type="module" src="js/perfil.js"></script>
 </body>
-
 </html>

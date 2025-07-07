@@ -550,6 +550,7 @@
             <a href="#services"><i class="fas fa-concierge-bell"></i> Serviços</a>
             <a href="#contact"><i class="fas fa-envelope"></i> Contato</a>
             <a href="entrar.html" class="btn-login"><i class="fas fa-user"></i> Entrar</a>
+            <a href="perfil.html" id="perfil-link" style="display: none;"><i class="fas fa-user-circle"></i> Meu Perfil</a>
         </nav>
         <span class="menu-icon" onclick="toggleNav()"><ion-icon name="menu-outline"></ion-icon></span>
     </header>
@@ -678,8 +679,18 @@
             });
         });
         
-        // Animação ao carregar a página
+        // Verificar se o usuário está logado
         document.addEventListener('DOMContentLoaded', () => {
+            // Verificar se há token no localStorage
+            const token = localStorage.getItem('token');
+            const userData = localStorage.getItem('userData');
+            
+            if (token && userData) {
+                // Usuário está logado, mostrar link para perfil e ocultar botão de login
+                document.getElementById('perfil-link').style.display = 'flex';
+                document.querySelector('.btn-login').style.display = 'none';
+            }
+            
             // Configura animações iniciais
             document.querySelectorAll('.section-text, .section-image, .service-card').forEach(element => {
                 element.style.opacity = '0';
@@ -706,6 +717,13 @@
         }
         
         window.addEventListener('scroll', animateOnScroll);
+        
+        // Função para fazer logout
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
