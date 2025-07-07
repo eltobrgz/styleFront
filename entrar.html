@@ -9,6 +9,64 @@
     <link rel="stylesheet" href="css/entrar.css">
     <link rel="stylesheet" href="css/estilos.css">
     <!-- Remova qualquer importação do arquivo entrar.js se existir -->
+    <style>
+        /* Estilos para o loader */
+        .loader-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: auto;
+            height: auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .loader-container.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #6C5CE7;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        .loader-text {
+            font-size: 14px;
+            color: #2D3436;
+            font-weight: 500;
+        }
+        
+        .button-loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 
 <body class="cadastro">
@@ -35,7 +93,9 @@
         <input id="password" type="password" placeholder="Senha" required>
         <i class="mdi mdi-lock"></i>
     </div>
-    <button onclick="register()" type="button" class="btn">Cadastre-se</button>
+    <button onclick="register()" type="button" class="btn" id="registerBtn">
+        <span class="button-loader" id="registerLoader"></span>Cadastre-se
+    </button>
     </form>
   </div>
   <div class="form-container sign-in-container">
@@ -49,7 +109,9 @@
       <span>ou use sua conta</span>
       <input type="email" id="e-mail" placeholder="Email" />
       <input type="password" id="senha" placeholder="Senha" />
-      <button onclick="login()" type="button" class="btn">Entrar</button>
+      <button onclick="login()" type="button" class="btn" id="loginBtn">
+        <span class="button-loader" id="loginLoader"></span>Entrar
+      </button>
       <a href="#">Esqueceu sua senha?</a>
     </form>
   </div>
@@ -67,6 +129,12 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Loader global -->
+<div class="loader-container" id="loaderContainer">
+    <div class="loader"></div>
+    <span class="loader-text" id="loaderText">Carregando...</span>
 </div>
 
 <script type="module">
@@ -100,6 +168,14 @@
             return;
         }
 
+        // Mostrar loader global com texto específico e no botão
+        document.getElementById('loaderText').textContent = 'Fazendo login...';
+        document.getElementById('loaderContainer').classList.add('show');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginLoader = document.getElementById('loginLoader');
+        loginLoader.style.display = 'inline-block';
+        loginBtn.disabled = true;
+
         try {
             const response = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
@@ -125,6 +201,11 @@
         } catch (error) {
             console.error('Erro no login:', error);
             alert(error.message);
+            
+            // Esconder loader global e no botão em caso de erro
+            document.getElementById('loaderContainer').classList.remove('show');
+            loginLoader.style.display = 'none';
+            loginBtn.disabled = false;
         }
     }
 
@@ -142,6 +223,14 @@
             alert('Por favor, preencha todos os campos');
             return;
         }
+
+        // Mostrar loader global com texto específico e no botão
+        document.getElementById('loaderText').textContent = 'Criando sua conta...';
+        document.getElementById('loaderContainer').classList.add('show');
+        const registerBtn = document.getElementById('registerBtn');
+        const registerLoader = document.getElementById('registerLoader');
+        registerLoader.style.display = 'inline-block';
+        registerBtn.disabled = true;
 
         try {
             const response = await fetch(`${API_URL}/auth/register`, {
@@ -168,6 +257,11 @@
         } catch (error) {
             console.error('Erro no cadastro:', error);
             alert(error.message);
+            
+            // Esconder loader global e no botão em caso de erro
+            document.getElementById('loaderContainer').classList.remove('show');
+            registerLoader.style.display = 'none';
+            registerBtn.disabled = false;
         }
     }
 </script>

@@ -26,6 +26,14 @@ async function loadCombinations() {
     const photoFeed = document.getElementById('photo-feed');
     if (!photoFeed) return;
     
+    // Mostrar loader global com texto específico
+    const loaderContainer = document.getElementById('loaderContainer');
+    const loaderText = document.getElementById('loaderText');
+    if (loaderContainer && loaderText) {
+        loaderText.textContent = 'Carregando suas combinações...';
+        loaderContainer.classList.add('show');
+    }
+    
     try {
         const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/combinations`, {
@@ -83,12 +91,25 @@ async function loadCombinations() {
     } catch (error) {
         console.error('Erro ao carregar combinações:', error);
         photoFeed.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i><p>Erro ao carregar combinações. Tente novamente mais tarde.</p></div>';
+    } finally {
+        // Esconder loader global
+        if (loaderContainer) {
+            loaderContainer.classList.remove('show');
+        }
     }
 }
 
 // Função para visualizar uma combinação
 async function viewCombination(id) {
     if (!checkAuth()) return;
+    
+    // Mostrar loader global com texto específico
+    const loaderContainer = document.getElementById('loaderContainer');
+    const loaderText = document.getElementById('loaderText');
+    if (loaderContainer && loaderText) {
+        loaderText.textContent = 'Carregando detalhes da combinação...';
+        loaderContainer.classList.add('show');
+    }
     
     try {
         const token = localStorage.getItem('token');
@@ -140,7 +161,10 @@ async function viewCombination(id) {
                         <img src="${combination.lowerImage}" alt="Parte Inferior">
                     </div>
                 </div>
-                <button class="delete-combination" data-id="${combId}">Excluir Combinação</button>
+                <button class="delete-combination" id="deleteBtn-${combId}">
+                    <span class="button-loader" id="deleteLoader-${combId}"></span>
+                    Excluir Combinação
+                </button>
             </div>
         `;
         
@@ -153,8 +177,12 @@ async function viewCombination(id) {
         
         // Adicionar evento para excluir a combinação
         modal.querySelector('.delete-combination').addEventListener('click', async (event) => {
-            const combinationId = event.target.getAttribute('data-id');
+            const combinationId = event.target.getAttribute('id').replace('deleteBtn-', '');
             if (confirm('Tem certeza que deseja excluir esta combinação?')) {
+                // Mostrar loader no botão
+                const deleteLoader = document.getElementById(`deleteLoader-${combinationId}`);
+                if (deleteLoader) deleteLoader.style.display = 'inline-block';
+                
                 await deleteCombination(combinationId);
                 document.body.removeChild(modal);
                 loadCombinations(); // Recarregar a lista após excluir
@@ -164,12 +192,25 @@ async function viewCombination(id) {
     } catch (error) {
         console.error('Erro ao visualizar combinação:', error);
         alert('Erro ao carregar detalhes da combinação. Tente novamente mais tarde.');
+    } finally {
+        // Esconder loader global
+        if (loaderContainer) {
+            loaderContainer.classList.remove('show');
+        }
     }
 }
 
 // Função para excluir uma combinação
 async function deleteCombination(id) {
     if (!checkAuth()) return;
+    
+    // Mostrar loader global com texto específico
+    const loaderContainer = document.getElementById('loaderContainer');
+    const loaderText = document.getElementById('loaderText');
+    if (loaderContainer && loaderText) {
+        loaderText.textContent = 'Excluindo combinação...';
+        loaderContainer.classList.add('show');
+    }
     
     try {
         const token = localStorage.getItem('token');
@@ -190,6 +231,15 @@ async function deleteCombination(id) {
     } catch (error) {
         console.error('Erro ao excluir combinação:', error);
         alert('Erro ao excluir combinação. Tente novamente mais tarde.');
+    } finally {
+        // Esconder loader global
+        if (loaderContainer) {
+            loaderContainer.classList.remove('show');
+        }
+        
+        // Esconder loader do botão se existir
+        const deleteLoader = document.getElementById(`deleteLoader-${id}`);
+        if (deleteLoader) deleteLoader.style.display = 'none';
     }
 }
 

@@ -20,6 +20,63 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
+        /* Estilos para o loader */
+        .loader-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: auto;
+            height: auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .loader-container.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #6C5CE7;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        .loader-text {
+            font-size: 14px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .button-loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -482,6 +539,7 @@
                 </div>
 
                 <button type="submit" class="link-botao">
+                    <span id="submitLoader" class="button-loader"></span>
                     <i class="fas fa-paper-plane"></i> Enviar Preferências
                 </button>
             </form>
@@ -492,6 +550,12 @@
             <span>Preferências salvas com sucesso!</span>
         </div>
     </main>
+
+    <!-- Loader global -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+        <span class="loader-text" id="loaderText">Carregando...</span>
+    </div>
 
     <script type="module">
         // Importar configuração da API
@@ -511,6 +575,10 @@
     // Carregar dados do usuário se estiver editando o perfil
     async function loadUserData() {
         if (!checkAuth()) return;
+
+        // Mostrar loader global com texto específico
+        document.getElementById('loaderText').textContent = 'Carregando seus dados...';
+        document.getElementById('loaderContainer').classList.add('show');
 
         try {
             const token = localStorage.getItem('token');
@@ -553,12 +621,19 @@
             }
         } catch (error) {
             console.error('Erro ao carregar dados do usuário:', error);
+        } finally {
+            // Esconder loader global
+            document.getElementById('loaderContainer').classList.remove('show');
         }
     }
 
     // Enviar preferências para o backend
     async function savePreferences(preferences) {
         if (!checkAuth()) return;
+
+        // Mostrar loader global com texto específico
+        document.getElementById('loaderText').textContent = 'Salvando preferências...';
+        document.getElementById('loaderContainer').classList.add('show');
 
         try {
             const token = localStorage.getItem('token');
@@ -580,12 +655,19 @@
         } catch (error) {
             console.error('Erro ao salvar preferências:', error);
             throw error;
+        } finally {
+            // Esconder loader global
+            document.getElementById('loaderContainer').classList.remove('show');
         }
     }
 
     // Atualizar dados do usuário
     async function updateUserData(userData) {
         if (!checkAuth()) return;
+
+        // Mostrar loader global com texto específico
+        document.getElementById('loaderText').textContent = 'Atualizando seus dados...';
+        document.getElementById('loaderContainer').classList.add('show');
 
         try {
             const token = localStorage.getItem('token');
@@ -607,11 +689,18 @@
         } catch (error) {
             console.error('Erro ao atualizar dados do usuário:', error);
             throw error;
+        } finally {
+            // Esconder loader global
+            document.getElementById('loaderContainer').classList.remove('show');
         }
     }
 
     // Upload de imagem de perfil
     async function uploadProfileImage(imageFile) {
+        // Mostrar loader global com texto específico
+        document.getElementById('loaderText').textContent = 'Enviando imagem...';
+        document.getElementById('loaderContainer').classList.add('show');
+
         try {
             const token = localStorage.getItem('token');
             const formData = new FormData();
@@ -633,12 +722,24 @@
         } catch (error) {
             console.error('Erro ao fazer upload da imagem:', error);
             throw error;
+        } finally {
+            // Esconder loader global
+            document.getElementById('loaderContainer').classList.remove('show');
         }
     }
 
     // Manipular o envio do formulário
     document.getElementById('preferencesForm').addEventListener('submit', async function(event) {
         event.preventDefault();
+        
+        // Mostrar loaders com texto específico
+        document.getElementById('loaderText').textContent = 'Salvando suas preferências...';
+        document.getElementById('loaderContainer').classList.add('show');
+        document.getElementById('submitLoader').style.display = 'inline-block';
+        
+        // Desabilitar o botão de envio
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
         
         // Capturar os valores do formulário
         const preferences = {
@@ -688,6 +789,11 @@
             }, 2000);
         } catch (error) {
             alert('Erro ao salvar dados: ' + error.message);
+        } finally {
+            // Esconder loaders e reabilitar o botão independente do resultado
+            document.getElementById('loaderContainer').classList.remove('show');
+            document.getElementById('submitLoader').style.display = 'none';
+            submitButton.disabled = false;
         }
     });
 

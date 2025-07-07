@@ -9,6 +9,57 @@
     <link rel="stylesheet" href="css/perfil.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <!-- Estilos movidos para os arquivos CSS externos -->
+    <style>
+        /* Estilos para o loader */
+        .loader-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: auto;
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .loader-container.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            border-top-color: #6C5CE7;
+            animation: spin 1s linear infinite;
+        }
+        
+        .button-loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <!-- Botão de toggle da sidebar para mobile -->
@@ -90,6 +141,12 @@
             </div>
         </section>
     </main>
+
+    <!-- Loader global -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+        <span id="loaderText" style="color: white; margin-left: 10px; font-weight: 500;">Carregando...</span>
+    </div>
 
     <script src="js/sidebar.js"></script>
     <script type="module" src="js/perfil.js"></script>

@@ -29,6 +29,10 @@ function logout() {
 async function loadUserData() {
     if (!checkAuth()) return;
     
+    // Mostrar loader global com texto específico
+    document.getElementById('loaderText').textContent = 'Carregando seus dados...';
+    document.getElementById('loaderContainer').classList.add('show');
+    
     try {
         const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/users/me`, {
@@ -52,12 +56,19 @@ async function loadUserData() {
         
     } catch (error) {
         console.error('Erro ao carregar dados do usuário:', error);
+    } finally {
+        // Esconder loader global
+        document.getElementById('loaderContainer').classList.remove('show');
     }
 }
 
 // Função para visualizar uma combinação
 async function verLook(id) {
     if (!checkAuth()) return;
+    
+    // Mostrar loader global com texto específico
+    document.getElementById('loaderText').textContent = 'Carregando combinação...';
+    document.getElementById('loaderContainer').classList.add('show');
     
     try {
         const token = localStorage.getItem('token');
@@ -81,6 +92,9 @@ async function verLook(id) {
     } catch (error) {
         console.error('Erro ao visualizar combinação:', error);
         alert('Erro ao carregar detalhes da combinação');
+    } finally {
+        // Esconder loader global
+        document.getElementById('loaderContainer').classList.remove('show');
     }
 }
 
